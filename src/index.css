@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-accent-200
+  }
+
+  p {
+    @apply text-neutral-400 my-2
+  }
+
+  h1 {
+    @apply text-2xl font-bold my-2
+  }
+}
+
+@layer components {
+  .labeled-input {
+    @apply border rounded-md py-2 col-span-2 ps-4 border-opacity-20 border-accent-700 outline-accent-700 hover:outline-2 hover:outline focus:outline focus:outline-2
+  }
+
+  .labeled-input.error {
+    @apply outline outline-1 outline-error hover:outline-2 focus:outline-2
+  }
+}
