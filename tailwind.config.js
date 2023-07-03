@@ -7,12 +7,13 @@ export default {
   ],
   theme: {
     screens: {
-      'sm': '654px'
+      'sm': '570px'
     },
     fontFamily: {
       'sans': ['Ubuntu', ...defaultTheme.fontFamily.sans]
     },
     colors: {
+      'transparent': 'transparent',
       'white': 'hsl(0, 0%, 100%)',
       'neutral': {
         400: 'hsl(231, 100%, 99%)',

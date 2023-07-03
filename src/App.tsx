@@ -8,6 +8,7 @@ import AddonSelection from './pages/AddonSelection'
 import FinishingUp from './pages/FinishingUp'
 import ThankYou from './pages/ThankYou'
 import MainLayout from './layouts/MainLayout'
+import FormStepsContext, { FormSteps } from './contexts/FormStepsContext'
 
 const redirectToPersonalInfo = () => {
   return redirect("personal-info")
@@ -27,9 +28,20 @@ const router = createBrowserRouter(
 );
 
 function App() {
+  const formStepsContext: FormSteps = {
+    currentStep: 0,
+    stepTitles: [
+        'Your Info',
+        'Select Plan',
+        'Add-ons',
+        'Summary'
+    ]
+  }
 
   return (
-    <RouterProvider router={router} />
+    <FormStepsContext.Provider value={formStepsContext}>
+      <RouterProvider router={router} />
+    </FormStepsContext.Provider>
   )
 }
 
