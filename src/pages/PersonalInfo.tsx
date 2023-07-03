@@ -2,7 +2,7 @@ import LabeledInput from "../partials/LabeledInput"
 
 export default function PersonalInfo() {
   return (
-    <div className='px-4 py-4 m-10 shadow-xl rounded-xl'>
+    <div className='px-4 py-4 bg-white'>
       <h1>Personal info</h1>
       <p>Please provide your name, email address, and phone number.</p>
       <div className="my-4 space-y-4">

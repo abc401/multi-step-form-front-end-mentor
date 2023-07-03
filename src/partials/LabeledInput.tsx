@@ -30,15 +30,20 @@ export default function LabeledInput(props: Props) {
   }
 
   return (
-    <label htmlFor={props.id} className='my-2 grid grid-cols-2'>
-      <div className='text-sm'>{props.label}</div>
-      {
-        !isValid &&
-        <div className="text-sm text-right text-error font-bold">{errorMessage}</div>
-      }
+    <label htmlFor={props.id} className='block space-y-1'>
+      <div className='flex justify-between'>
+        {/* Label */}
+        <div className='text-sm'>{props.label}</div>
+        
+        {/* Error Message */}
+        {
+          !isValid &&
+          <div className="text-sm col-start-3 text-error font-bold">{errorMessage}</div>
+        }
+      </div>
       
       <input
-        className={`labeled-input ${!isValid && "error"}`}
+        className={`labeled-input w-full ${!isValid && "error"}`}
         ref={inputRef}
         onBlur={onBlur}
         onChange={onChange}

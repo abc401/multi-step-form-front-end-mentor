@@ -6,15 +6,19 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
+    screens: {
+      'sm': '654px'
+    },
     fontFamily: {
       'sans': ['Ubuntu', ...defaultTheme.fontFamily.sans]
     },
     colors: {
+      'white': 'hsl(0, 0%, 100%)',
       'neutral': {
-        100: 'hsl(231, 100%, 99%)',
-        200: 'hsl(217, 100%, 97%)',
-        300: 'hsl(229, 24%,  87%)',
-        400: 'hsl(231, 11%,  63%)',
+        400: 'hsl(231, 100%, 99%)',
+        300: 'hsl(217, 100%, 97%)',
+        200: 'hsl(229, 24%,  87%)',
+        100: 'hsl(231, 11%,  63%)',
       },
     },
     extend: {

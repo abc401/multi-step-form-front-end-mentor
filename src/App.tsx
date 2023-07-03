@@ -7,6 +7,7 @@ import PlanSelection from './pages/PlanSelection'
 import AddonSelection from './pages/AddonSelection'
 import FinishingUp from './pages/FinishingUp'
 import ThankYou from './pages/ThankYou'
+import MainLayout from './layouts/MainLayout'
 
 const redirectToPersonalInfo = () => {
   return redirect("personal-info")
@@ -14,7 +15,7 @@ const redirectToPersonalInfo = () => {
 
 const router = createBrowserRouter(
   createRoutesFromChildren(
-    <Route>
+    <Route element={<MainLayout />}>
       <Route index loader={redirectToPersonalInfo} />
       <Route path="personal-info" element={<PersonalInfo />}></Route>
       <Route path="plan-selection" element={<PlanSelection />}></Route>
