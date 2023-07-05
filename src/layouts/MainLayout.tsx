@@ -1,10 +1,12 @@
 import { Outlet } from 'react-router-dom'
 import FormStep from '../partials/FormStep'
+import FormStepSequenceContext, { FormPart, FormStepSequenceManager } from '../contexts/FormStepSequenceContext'
 import { useContext } from 'react'
-import FormStepsContext from '../contexts/FormStepsContext'
+
 
 export default function MainLayout() {
-  const { currentStep, stepTitles } = useContext(FormStepsContext);
+  const formStepSequenceManager = useContext(FormStepSequenceContext)
+  if (formStepSequenceManager == null) return;
 
   return (
     <div
@@ -19,7 +21,7 @@ export default function MainLayout() {
         min-h-screen sm:min-h-0'
     >
       <picture className=' contents ' >
-        <source srcSet='/images/bg-sidebar-desktop.svg' media='(min-width: 570px)' className='hidden' />
+        <source srcSet='/images/bg-sidebar-desktop.svg' media='(min-width: 560px)' className='hidden' />
         <img
           src="/images/bg-sidebar-mobile.svg" alt=""
           className='
@@ -47,12 +49,13 @@ export default function MainLayout() {
 
       >
         {
-          stepTitles.map(
-            (title: string, index: number) =>
+          formStepSequenceManager.sequence.map(
+            (part: FormPart, index: number) =>
               <FormStep
                 index={index + 1}
-                active={index == currentStep}
-                title={title}
+                active={index === formStepSequenceManager.currentStep.get()}
+                title={part.title}
+                key={index}
               />
           )
 
@@ -62,28 +65,28 @@ export default function MainLayout() {
 
       <div
         className='
-          grid grid-rows-[auto,_1fr,_auto]
+          flex flex-col justify-between
           col-start-2 row-start-2
+          min-w-[218px]
           z-10
           sm:col-start-3 sm:row-start-1'
       >
-        <div className='sm:max-w-sm sm:min-w-[270px] col-start-1 sm:col-start-2 sm:my-0 shadow-2xl rounded-lg overflow-hidden sm:shadow-none' >
           <Outlet />
-        </div>
 
-        <div
-          className='
-            font-bold text-sm bg-white 
-            flex justify-between
-            p-4
-            -mx-4 sm:m-0
-            row-start-3
-            col-start-1 sm:col-start-2'
-        >
-          <button className='text-neutral-100 hover:text-accent-200'>Go Back</button>
-          <button className='bg-accent-200 hover:bg-accent-400 text-white py-2 px-4 rounded'>Next Step</button>
-        </div>
       </div>
     </div>
   )
 }
+
+        // <div
+        //   className='
+        //     font-bold text-sm bg-white 
+        //     flex justify-between
+        //     p-4
+        //     -mx-4 sm:m-0
+        //     row-start-3
+        //     col-start-1 sm:col-start-2'
+        // >
+        //   <button className='text-neutral-100 hover:text-accent-200'>Go Back</button>
+        //   <button className='bg-accent-200 hover:bg-accent-400 text-white py-2 px-4 rounded'>Next Step</button>
+        // </div>

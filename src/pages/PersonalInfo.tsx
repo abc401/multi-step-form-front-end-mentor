@@ -1,8 +1,16 @@
 import LabeledInput from "../partials/LabeledInput"
+import { FormPart } from "../contexts/FormStepSequenceContext"
+
+export const PERSONAL_INFO_FORM = new FormPart('Your Info', <PersonalInfo />)
 
 export default function PersonalInfo() {
   return (
-    <div className='px-4 bg-white'>
+    <div
+      className="
+          bg-white
+          p-4 sm:p-0
+          rounded-xl"
+    >
       <h1>Personal info</h1>
       <p>Please provide your name, email address, and phone number.</p>
       <div className="my-4 space-y-4">
@@ -13,6 +21,7 @@ export default function PersonalInfo() {
           label="Name"
           placeholder="e.g. Stephen King"
         />
+
         <LabeledInput
           type="email"
           name="email"
@@ -21,7 +30,8 @@ export default function PersonalInfo() {
           id="email"
           placeholder="e.g. stephenking@lorem.com"
         />
-        <LabeledInput 
+
+        <LabeledInput
           type="tel"
           name="phno"
           id="phno"
@@ -31,10 +41,5 @@ export default function PersonalInfo() {
         />
       </div>
     </div>
-
-
-
-
-
   )
 }

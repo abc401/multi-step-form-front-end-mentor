@@ -1,47 +1,49 @@
-import { redirect, RouterProvider, createBrowserRouter, createRoutesFromChildren, Route } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter, createRoutesFromChildren, Route } from 'react-router-dom'
 import './App.css'
+import { useState } from 'react'
+import FormStepSequenceContext, { ReactState } from './contexts/FormStepSequenceContext'
+import { FormStepSequenceManager } from './contexts/FormStepSequenceContext'
+import { PERSONAL_INFO_FORM } from './pages/PersonalInfo'
+import { PLAN_SELECTION_FORM } from './pages/PlanSelection'
 
 // Pages
-import PersonalInfo from './pages/PersonalInfo'
-import PlanSelection from './pages/PlanSelection'
-import AddonSelection from './pages/AddonSelection'
-import FinishingUp from './pages/FinishingUp'
 import ThankYou from './pages/ThankYou'
 import MainLayout from './layouts/MainLayout'
-import FormStepsContext, { FormSteps } from './contexts/FormStepsContext'
+import SignUpForm from './pages/SignUpForm'
 
-const redirectToPersonalInfo = () => {
-  return redirect("personal-info")
-}
+const formStepSequence = [
+    PERSONAL_INFO_FORM,
+    PLAN_SELECTION_FORM
+]
 
 const router = createBrowserRouter(
   createRoutesFromChildren(
     <Route element={<MainLayout />}>
-      <Route index loader={redirectToPersonalInfo} />
-      <Route path="personal-info" element={<PersonalInfo />}></Route>
-      <Route path="plan-selection" element={<PlanSelection />}></Route>
-      <Route path="addon-selection" element={<AddonSelection />}></Route>
-      <Route path="finish-up" element={<FinishingUp />}></Route>
-      <Route path="thank-you" element={<ThankYou />}></Route>
+      <Route 
+        index
+        element={<SignUpForm />}
+      />
+      <Route 
+        path="thank-you"
+        element={<ThankYou />}
+      />
     </Route>
   )
 );
 
 function App() {
-  const formStepsContext: FormSteps = {
-    currentStep: 0,
-    stepTitles: [
-        'Your Info',
-        'Select Plan',
-        'Add-ons',
-        'Summary'
-    ]
+  const [currentStep, setCurrentStep] = useState(0)
+
+  const currentStepState: ReactState<number> = {
+    set: (value) => setCurrentStep(value),
+    get: () => currentStep
   }
 
+  const formStepSequenceManager = new FormStepSequenceManager(formStepSequence, currentStepState)
   return (
-    <FormStepsContext.Provider value={formStepsContext}>
+    <FormStepSequenceContext.Provider value={formStepSequenceManager} >
       <RouterProvider router={router} />
-    </FormStepsContext.Provider>
+    </FormStepSequenceContext.Provider>
   )
 }
 

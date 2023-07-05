@@ -7,7 +7,7 @@ export default {
   ],
   theme: {
     screens: {
-      'sm': '570px'
+      'sm': '560px'
     },
     fontFamily: {
       'sans': ['Ubuntu', ...defaultTheme.fontFamily.sans]

@@ -17,6 +17,18 @@
 }
 
 @layer components {
+  .btn {
+    @apply py-2;
+  }
+
+  .btn-secondary {
+    @apply text-neutral-100 hover:text-accent-200;
+  }
+
+  .btn-primary {
+    @apply px-4 bg-accent-200 hover:bg-accent-400 text-white rounded;
+  }
+
   .labeled-input {
     @apply border rounded-md py-2 ps-4 border-opacity-20 border-accent-700 outline-accent-700 hover:outline-2 hover:outline focus:outline focus:outline-2;
   }
