@@ -1,4 +1,4 @@
-import { FormPart } from "../contexts/FormStepSequenceContext"
+import { FormPart } from "../contexts/FromNavigationContext"
 
 export const FINISHING_UP_FORM_PART     = new FormPart('Summary',     '/finish-up')
 

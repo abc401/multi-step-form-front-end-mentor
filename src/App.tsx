@@ -1,15 +1,15 @@
 import { RouterProvider, createBrowserRouter, createRoutesFromChildren, Route } from 'react-router-dom'
 import './App.css'
 import { useState } from 'react'
-import FormStepSequenceContext, { ReactState } from './contexts/FormStepSequenceContext'
-import { FormStepSequenceManager } from './contexts/FormStepSequenceContext'
+import FormNavigationContext, { ReactState } from './contexts/FromNavigationContext'
+import { FormNavigationManager } from './contexts/FromNavigationContext'
 import { PERSONAL_INFO_FORM } from './pages/PersonalInfo'
 import { PLAN_SELECTION_FORM } from './pages/PlanSelection'
 
 // Pages
 import ThankYou from './pages/ThankYou'
 import MainLayout from './layouts/MainLayout'
-import SignUpForm from './pages/SignUpForm'
+import SignUpForm from './layouts/SignUpForm'
 
 const formStepSequence = [
     PERSONAL_INFO_FORM,
@@ -39,11 +39,11 @@ function App() {
     get: () => currentStep
   }
 
-  const formStepSequenceManager = new FormStepSequenceManager(formStepSequence, currentStepState)
+  const formNavigation = new FormNavigationManager(formStepSequence, currentStepState)
   return (
-    <FormStepSequenceContext.Provider value={formStepSequenceManager} >
+    <FormNavigationContext.Provider value={formNavigation} >
       <RouterProvider router={router} />
-    </FormStepSequenceContext.Provider>
+    </FormNavigationContext.Provider>
   )
 }
 

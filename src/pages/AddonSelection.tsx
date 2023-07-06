@@ -1,4 +1,4 @@
-import { FormPart } from "../contexts/FormStepSequenceContext"
+import { FormPart } from "../contexts/FromNavigationContext"
 
 export const ADDON_SELECTION_FORM_PART  = new FormPart('Add-ons',     '/addon-selection')
 

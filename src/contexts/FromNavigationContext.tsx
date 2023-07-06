@@ -15,7 +15,7 @@ export interface ReactState<T> {
   get: () => T
 }
 
-export class FormStepSequenceManager {
+export class FormNavigationManager {
   sequence: FormPart[]
   currentStep: ReactState<number>
 
@@ -31,6 +31,6 @@ export class FormStepSequenceManager {
   }
 }
 
-const FormStepSequenceContext = createContext<FormStepSequenceManager | undefined>(undefined)
+const FormNavigationContext = createContext<FormNavigationManager | undefined>(undefined)
 
-export default FormStepSequenceContext;
+export default FormNavigationContext;

@@ -1,15 +1,13 @@
-import FormStepSequenceContext from '../contexts/FormStepSequenceContext'
+import FormNavigationContext from '../contexts/FromNavigationContext'
 import {useContext} from 'react'
 import { Link } from 'react-router-dom';
 
 export default function FormNav() {
-  const formStepSequenceManager = useContext(FormStepSequenceContext);
-  if (formStepSequenceManager == null) return;
+  const formNavigationManager = useContext(FormNavigationContext);
+  if (formNavigationManager == null) return;
 
-  const currentStep = formStepSequenceManager.currentStep;
-  const sequence = formStepSequenceManager.sequence;
-
-  if (currentStep == null) return
+  const currentStep = formNavigationManager.currentStep;
+  const sequence = formNavigationManager.sequence;
   
   return (
     <div

@@ -1,48 +1,52 @@
 import { useRef, useState } from 'react'
+import { BillingPlan } from '../pages/PlanSelection';
+
+export type BillingPeriod = "monthly" | "yearly";
 
 interface Props {
-    title: string
-    price: number
-    yearly?: boolean
-    selected?: boolean
-    imgSrc: string
+    billingPlan: BillingPlan
+    currentPlan?: BillingPlan
+    billingPeriod: BillingPeriod
+    setPlanType: (plan: BillingPlan) => void
+    checked?: boolean
 }
 
 export default function PlanCardRadio(props: Props) {
+  const {title, iconSrc, monthlyPrice, yearlyPrice} = props.billingPlan
   const radioRef = useRef<HTMLInputElement>(null)
-  const [checked, setChecked] = useState(props.selected)
 
-  const onChange = () => {
-    const radioButton = radioRef.current
-    if (radioButton == null) return
-    setChecked(radioButton.checked)
-    console.log("changed")
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    props.setPlanType(props.billingPlan)
   }
 
   return (
-    <label htmlFor={props.title.toLowerCase()}
+    <label htmlFor={title.toLowerCase()}
       className={`
         flex
         rounded-md
         border 
-        ${ checked? "border-accent-200" : "border-neutral-100/20" }
-        p-4 space-x-4
+        ${ props.checked?
+            "border-accent-400 bg-neutral-300"
+          :
+            "border-neutral-100/20"
+        }
+        py-4 space-x-4
       `}
     >
       <input
         ref={radioRef}
-        {...onChange}
+        onChange={onChange}
         type="radio"
         name="plan-selection"
-        id={props.title.toLowerCase()}
-        className=""
+        id={title.toLowerCase()}
+        className="hidden"
       />
-      <img src={props.imgSrc} alt="" />
+      <img src={iconSrc} alt="" />
       <div>
-        <h2 className="font-bold text-sm">{ props.title }</h2>
-        <div className="text-xs text-neutral-100">${props.price}/{props.yearly? "yr" : "mo"}</div>
+        <h2 className="font-bold text-sm">{ title }</h2>
+        <div className="text-xs text-neutral-100">${props.billingPeriod == "yearly" ? `${yearlyPrice}/yr` : `${monthlyPrice}/mo`}</div>
         {
-          props.yearly &&
+          props.billingPeriod == "yearly" &&
           <div className="text-xs">2 months free</div>
         }
       </div>

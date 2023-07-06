@@ -1,12 +1,12 @@
 import { Outlet } from 'react-router-dom'
 import FormStep from '../partials/FormStep'
-import FormStepSequenceContext, { FormPart, FormStepSequenceManager } from '../contexts/FormStepSequenceContext'
+import FormNavigationContext, { FormPart } from '../contexts/FromNavigationContext'
 import { useContext } from 'react'
 
 
 export default function MainLayout() {
-  const formStepSequenceManager = useContext(FormStepSequenceContext)
-  if (formStepSequenceManager == null) return;
+  const formNavigationManager = useContext(FormNavigationContext)
+  if (formNavigationManager == null) return;
 
   return (
     <div
@@ -15,7 +15,7 @@ export default function MainLayout() {
         grid 
         grid-cols-[1rem,_auto,_1rem]
         sm:grid-cols-[auto,_minmax(1rem,_5rem),_auto,_minmax(1rem,_5rem)]
-        sm:p-4
+        sm:p-4 sm:pe-0
         sm:m-4
         rounded-xl sm:shadow-2xl
         min-h-screen sm:min-h-0'
@@ -28,7 +28,7 @@ export default function MainLayout() {
             object-contain
             row-span-2 col-start-1 col-span-3 row-start-1
             w-full
-            sm:min-w-[210px] sm:max-w-[240px]
+            sm:min-w-[210px] sm:max-w-[224px]
             sm:row-start-1 sm:col-start-1 sm:col-span-1 sm:row-span-1 '
         />
       </picture>
@@ -49,11 +49,11 @@ export default function MainLayout() {
 
       >
         {
-          formStepSequenceManager.sequence.map(
+          formNavigationManager.sequence.map(
             (part: FormPart, index: number) =>
               <FormStep
                 index={index + 1}
-                active={index === formStepSequenceManager.currentStep.get()}
+                active={index === formNavigationManager.currentStep.get()}
                 title={part.title}
                 key={index}
               />
@@ -67,7 +67,7 @@ export default function MainLayout() {
         className='
           flex flex-col justify-between
           col-start-2 row-start-2
-          min-w-[218px]
+          min-w-[218px] sm:w-fit
           z-10
           sm:col-start-3 sm:row-start-1'
       >
