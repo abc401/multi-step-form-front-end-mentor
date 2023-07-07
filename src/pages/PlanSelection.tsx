@@ -58,7 +58,7 @@ export default function PlanSelection() {
       } </div>
       <div
         className="
-          flex justify-center
+          flex justify-center items-center
           space-x-4
           mt-4 p-2
           rounded-md 

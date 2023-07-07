@@ -40,7 +40,7 @@ export default function MainLayout() {
           col-start-2 row-start-1
           sm:col-start-1 sm:row-start-1
 
-          m-auto sm:m-8
+          mx-auto my-4 sm:m-8
           space-x-3 sm:space-x-0 sm:space-y-7
 
           flex

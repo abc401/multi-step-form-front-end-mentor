@@ -11,6 +11,7 @@ export default function SignUpForm() {
       <div
         className="
           bg-white
+          mb-4
           p-4 sm:p-0
           rounded-xl
           min-w-[250px]
