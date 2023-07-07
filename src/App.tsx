@@ -11,11 +11,13 @@ import ThankYou from './pages/ThankYou'
 import MainLayout from './layouts/MainLayout'
 import SignUpForm from './layouts/SignUpForm'
 import { ADDON_SELECTION_FORM } from './pages/AddonSelection'
+import { FINISHING_UP_FORM } from './pages/FinishingUp'
 
 const formStepSequence = [
     PERSONAL_INFO_FORM,
     PLAN_SELECTION_FORM,
-    ADDON_SELECTION_FORM
+    ADDON_SELECTION_FORM,
+    FINISHING_UP_FORM
 ]
 
 const router = createBrowserRouter(
