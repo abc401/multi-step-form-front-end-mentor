@@ -43,7 +43,11 @@ export default function PlanSelection() {
       <h1>Select your plan</h1>
       <p>You have the option of monthly or yearly billing.</p>
       <div
-        className="space-y-2"
+        className="
+          sm:grid sm:grid-cols-3
+          sm:gap-x-2
+          space-y-2 sm:space-y-0
+        "
       > {
         billingPlans.map((plan) => {
           return  <PlanCardRadio
@@ -67,6 +71,21 @@ export default function PlanSelection() {
         <span>Monthly</span>
         <input 
           type="checkbox"
+          className="
+            relative appearance-none
+            w-[2em] h-[1em] rounded-full
+            bg-accent-200 
+
+            after:absolute after:content-[''] 
+            after:h-[70%] after:aspect-square after:rounded-full
+            after:top-[50%]
+            after:-translate-y-[50%] after:-translate-x-[50%]
+            after:left-[25%]
+            after:transition-[left]
+            after:bg-white 
+
+            checked:after:left-[75%]
+          "
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             const target = event.target;
             if (target.checked) {

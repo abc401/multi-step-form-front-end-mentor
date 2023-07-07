@@ -10,10 +10,12 @@ import { PLAN_SELECTION_FORM } from './pages/PlanSelection'
 import ThankYou from './pages/ThankYou'
 import MainLayout from './layouts/MainLayout'
 import SignUpForm from './layouts/SignUpForm'
+import { ADDON_SELECTION_FORM } from './pages/AddonSelection'
 
 const formStepSequence = [
     PERSONAL_INFO_FORM,
-    PLAN_SELECTION_FORM
+    PLAN_SELECTION_FORM,
+    ADDON_SELECTION_FORM
 ]
 
 const router = createBrowserRouter(

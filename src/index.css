@@ -3,25 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  input[type="checkbox"] {
-    @apply relative appearance-none w-[2em] h-[1em] bg-accent-200 rounded-full;
-  }
   
-  input[type="checkbox"]::after {
-    @apply 
-      absolute content-[""] 
-      h-[70%] aspect-square rounded-full
-      top-[50%]
-      -translate-y-[50%] -translate-x-[50%]
-      left-[25%]
-      transition-[left]
-      bg-white 
-  }
-
-  input[type="checkbox"]:checked::after {
-    @apply left-[75%];
-  }
-
   body {
     @apply text-accent-200;
   }
@@ -36,6 +18,13 @@
 }
 
 @layer components {
+  .selectable {
+    @apply rounded-md border border-neutral-100/20
+  }
+
+  .selectable-selected {
+    @apply border-accent-400 bg-neutral-300
+  }
   .btn {
     @apply py-2;
   }

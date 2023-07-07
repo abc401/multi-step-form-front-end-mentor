@@ -23,14 +23,11 @@ export default function PlanCardRadio(props: Props) {
     <label htmlFor={title.toLowerCase()}
       className={`
         flex
-        rounded-md
-        border 
-        ${ props.checked?
-            "border-accent-400 bg-neutral-300"
-          :
-            "border-neutral-100/20"
-        }
-        py-4 space-x-4
+        sm:flex-col
+        selectable
+        ${props.checked && "selectable-selected"}
+        py-4 sm:p-3
+        space-x-4 sm:space-x-0
       `}
     >
       <input
@@ -41,7 +38,12 @@ export default function PlanCardRadio(props: Props) {
         id={title.toLowerCase()}
         className="hidden"
       />
-      <img src={iconSrc} alt="" />
+      <img
+        src={iconSrc}
+        className='
+          w-8 sm:mb-10
+        '
+      />
       <div>
         <h2 className="font-bold text-sm">{ title }</h2>
         <div className="text-xs text-neutral-100">${props.billingPeriod == "yearly" ? `${yearlyPrice}/yr` : `${monthlyPrice}/mo`}</div>
