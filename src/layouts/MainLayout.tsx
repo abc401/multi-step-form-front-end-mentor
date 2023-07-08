@@ -1,12 +1,16 @@
-import { Outlet } from 'react-router-dom'
+import {useRef} from 'react'
+import { Outlet, Form } from 'react-router-dom'
 import FormStep from '../partials/FormStep'
-import FormNavigationContext, { FormPart } from '../contexts/FromNavigationContext'
+import FormNavigationContext, { FormMetaData } from '../contexts/FromNavigationContext'
 import { useContext } from 'react'
+import FormInputContext, { CompleteFormInput } from '../contexts/FormInputContext'
 
 
 export default function MainLayout() {
   const formNavigationManager = useContext(FormNavigationContext)
   if (formNavigationManager == null) return;
+  
+  const formInputData = useRef<CompleteFormInput>(new Map())
 
   return (
     <div
@@ -50,11 +54,11 @@ export default function MainLayout() {
       >
         {
           formNavigationManager.sequence.map(
-            (part: FormPart, index: number) =>
+            (metaData: FormMetaData, index: number) =>
               <FormStep
                 index={index + 1}
                 active={index === formNavigationManager.currentStep.get()}
-                title={part.title}
+                title={metaData.title}
                 key={index}
               />
           )
@@ -63,7 +67,10 @@ export default function MainLayout() {
 
       </div>
 
-      <div
+      <Form
+        onSubmit={() => {
+          return false
+        }}
         className='
           flex flex-col justify-between
           col-start-2 row-start-2
@@ -71,9 +78,10 @@ export default function MainLayout() {
           z-10
           sm:col-start-3 sm:row-start-1'
       >
+        <FormInputContext.Provider value={formInputData.current} >
           <Outlet />
-
-      </div>
+        </FormInputContext.Provider>
+      </Form>
     </div>
   )
 }

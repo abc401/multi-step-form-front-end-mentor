@@ -1,9 +1,26 @@
+import { useSingleFormInputData } from "../contexts/FormInputContext"
 import LabeledInput from "../partials/LabeledInput"
-import { FormPart } from "../contexts/FromNavigationContext"
+import { FormMetaData } from "../contexts/FromNavigationContext"
 
-export const PERSONAL_INFO_FORM = new FormPart('Your Info', <PersonalInfo />)
+export const PERSONAL_INFO_FORM = new FormMetaData('Your Info', <PersonalInfo />)
+
+class LabeledInputMetaData {
+  constructor(
+    readonly id: string,
+    readonly type: string,
+    readonly label: string,
+    readonly placeholder: string,
+  ) {}
+}
+
+const labeledInputs = [
+  new LabeledInputMetaData('name', 'text', 'Name', 'e.g. Stephen King'),
+  new LabeledInputMetaData('email', 'email', 'Email', 'e.g. stephenking@lorem.com'),
+  new LabeledInputMetaData('phno', 'tel', 'Phone Number', 'e.g. +1 234 567 890'),
+]
 
 export default function PersonalInfo() {
+  const inputData = useSingleFormInputData(PERSONAL_INFO_FORM.id);
   return (
     <div
       className="
@@ -13,33 +30,17 @@ export default function PersonalInfo() {
     >
       <h1>Personal info</h1>
       <p>Please provide your name, email address, and phone number.</p>
-      <div className="mt-4 space-y-4">
-        <LabeledInput
-          type="text"
-          id="name"
-          name="name"
-          label="Name"
-          placeholder="e.g. Stephen King"
-        />
-
-        <LabeledInput
-          type="email"
-          name="email"
-          required
-          label="Email Address"
-          id="email"
-          placeholder="e.g. stephenking@lorem.com"
-        />
-
-        <LabeledInput
-          type="tel"
-          name="phno"
-          id="phno"
-          label="Phone Number"
-          required
-          placeholder="e.g. +1 234 567 890"
-        />
-      </div>
+      <div className="mt-4 space-y-4"> {
+        labeledInputs.map((labeledInput) => {
+          return  <LabeledInput
+                    {...labeledInput}
+                    required
+                    name={labeledInput.id}
+                    key={labeledInput.id}
+                    inputData={inputData}
+                  />
+        })
+      } </div>
     </div>
   )
 }

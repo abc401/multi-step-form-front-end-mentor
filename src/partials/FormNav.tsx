@@ -1,6 +1,7 @@
-import FormNavigationContext from '../contexts/FromNavigationContext'
+import FormNavigationContext, { useFormIndex } from '../contexts/FromNavigationContext'
 import {useContext} from 'react'
 import { Link } from 'react-router-dom';
+import { useSingleFormInputData } from '../contexts/FormInputContext';
 
 export default function FormNav() {
   const formNavigationManager = useContext(FormNavigationContext);
@@ -8,7 +9,9 @@ export default function FormNav() {
 
   const currentStep = formNavigationManager.currentStep;
   const sequence = formNavigationManager.sequence;
-  
+  const currentFormMetaData = sequence[currentStep.get()]
+  const inputData = useSingleFormInputData(currentFormMetaData.id);
+
   return (
     <div
       className='
@@ -20,6 +23,7 @@ export default function FormNav() {
       {
         currentStep.get() > 0 &&
         <button
+          type='button'
           onClick={() => currentStep.set(currentStep.get() - 1)}
           className='
             btn btn-secondary
@@ -31,7 +35,14 @@ export default function FormNav() {
       {
         currentStep.get() < (sequence.length - 1) ? 
           <button
-            onClick={() => currentStep.set(currentStep.get() + 1)}
+            onClick={
+              () => {
+                if (!inputData.isValid()) {
+                  return;
+                }
+                currentStep.set(currentStep.get() + 1)
+              }
+            }
             className='
               btn btn-primary
               col-end-[-1]

@@ -28,7 +28,7 @@ export default function AddonCheckBox(props: Props) {
           h-[1em] accent-accent-400
         "
         type="checkbox"
-        name={`addon-${addon.title.toLowerCase()}`}
+        defaultChecked={props.selected}
         onChange={
           (event: React.ChangeEvent<HTMLInputElement>) => {
             const target = event.target;

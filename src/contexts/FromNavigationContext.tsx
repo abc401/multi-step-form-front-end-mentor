@@ -1,13 +1,16 @@
-import { ReactNode, createContext } from 'react'
+import { ReactNode, createContext, useContext } from 'react'
 
-export class FormPart {
-  title: string
-  element: ReactNode
+export class FormMetaData {
+  constructor(
+    readonly title: string,
+    readonly element: ReactNode,
+  ) { }
+
   
-  constructor(title: string, element: ReactNode) {
-    this.title = title
-    this.element = element
+  public get id() : string {
+    return this.title.toLowerCase()
   }
+  
 }
 
 export interface ReactState<T> {
@@ -16,18 +19,33 @@ export interface ReactState<T> {
 }
 
 export class FormNavigationManager {
-  sequence: FormPart[]
-  currentStep: ReactState<number>
+  constructor(
+    readonly sequence: FormMetaData[],
+    readonly currentStep: ReactState<number>
+  ) { }
 
-  constructor(sequence: FormPart[], currentStep: ReactState<number>) {
-    this.sequence = sequence
-    this.currentStep = currentStep
+  indexOf(formMetaData: FormMetaData) {
+    return this.sequence.indexOf(formMetaData)
   }
-  
 
   currentFormJSX() {
-    const currentFormStep = this.sequence[this.currentStep.get()]
-    return currentFormStep.element
+    const currentFormMetaData = this.sequence[this.currentStep.get()]
+    return currentFormMetaData.element
+  }
+
+  goto(formMetaData: FormMetaData) {
+    const formIndex = this.indexOf(formMetaData)
+    this.currentStep.set(formIndex)
+  }
+}
+
+export const useFormIndex = (formMetaData: FormMetaData) => {
+  const formNavigation = useContext(FormNavigationContext);
+  if (formNavigation == null) return;
+  for (let i = 0; i < formNavigation.sequence.length; i++) {
+    if (formNavigation.sequence[i].title === formMetaData.title) {
+      return i;
+    }
   }
 }
 

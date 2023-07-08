@@ -1,26 +1,50 @@
 
 import PlanCardRadio, {BillingPeriod} from "../partials/PlanCard"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import arcadeIcon from '/images/icon-arcade.svg'
 import proIcon from '/images/icon-pro.svg'
 import advancedIcon from '/images/icon-advanced.svg'
 
-import { FormPart } from "../contexts/FromNavigationContext"
+import { FormMetaData } from "../contexts/FromNavigationContext"
+import { FormEntry, useSingleFormInputData } from "../contexts/FormInputContext"
 
-export const PLAN_SELECTION_FORM = new FormPart('Select Plan', <PlanSelection />)
+export const PLAN_SELECTION_FORM = new FormMetaData('Select Plan', <PlanSelection />)
+
+export const BILLING_PLAN_KEY = "BILLING_PLAN_KEY";
+export const BILLING_PERIOD_KEY = "BILLING_PERIOD_KEY";
+
+const entryKeys = [
+  BILLING_PLAN_KEY,
+  BILLING_PERIOD_KEY
+]
 
 export class BillingPlan {
-  title: string;
-  monthlyPrice: number;
-  yearlyPrice: number;
-  iconSrc: string;
+  constructor(
+    readonly iconSrc: string,
+    readonly title: string, 
+    readonly monthlyPrice: number,
+    readonly yearlyPrice: number
+  ) { }
+  
+  public get id() : string {
+    return this.title.toLowerCase()
+  }
 
-  constructor(iconSrc: string, title: string, monthlyPrice: number, yearlyPrice: number) {
-    this.iconSrc = iconSrc
-    this.title = title
-    this.monthlyPrice = monthlyPrice
-    this.yearlyPrice = yearlyPrice
+  public priceString(billingPeriod: BillingPeriod) {
+    if (billingPeriod === "monthly") {
+      return `$${this.monthlyPrice}/mo`
+    } else {
+      return `$${this.yearlyPrice}/yr`
+    }
+  }
+
+  public price(billingPeriod: BillingPeriod) {
+    if (billingPeriod === "monthly") {
+      return this.monthlyPrice
+    } else {
+      return this.yearlyPrice
+    }
   }
 }
 
@@ -31,17 +55,43 @@ const billingPlans = [
 ]
 
 export default function PlanSelection() {
-  const [currentPlanType, setCurrentPlanType] = useState<BillingPlan | undefined>(undefined);
-  const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>("monthly")
-  console.log(currentPlanType)
+
+  const inputData = useSingleFormInputData(PLAN_SELECTION_FORM.id);
+  let entries = inputData.getOrInitEntries(entryKeys);
+
+  let billingPlanEntry = entries.get(BILLING_PLAN_KEY) as FormEntry<BillingPlan>;
+  let billingPeriodEntry = entries.get(BILLING_PERIOD_KEY) as FormEntry<BillingPeriod>;
+  if (billingPeriodEntry.entry == null) {
+    billingPeriodEntry.entry = "monthly"
+  }
+
+  const [currentPlanType, setCurrentPlanType] = useState<BillingPlan | undefined>(billingPlanEntry.entry);
+  const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>(billingPeriodEntry.entry)
+
+  // Set billing plan
+  useEffect(() => {
+    if (currentPlanType == null) return;
+
+    billingPlanEntry.entry = currentPlanType
+    billingPlanEntry.isValid = true
+  }, [currentPlanType])
+
+  // Set billing period
+  useEffect(() => {
+    billingPeriodEntry.entry = billingPeriod
+    billingPeriodEntry.isValid = true;
+  }, [billingPeriod])
+
   const setPlanType = (plan: BillingPlan) => {
     setCurrentPlanType(plan)
-    console.log(plan)
   }
+
   return (
     <div>
       <h1>Select your plan</h1>
       <p>You have the option of monthly or yearly billing.</p>
+
+      {/* Billing plan selection */}
       <div
         className="
           sm:grid sm:grid-cols-3
@@ -60,6 +110,8 @@ export default function PlanSelection() {
                   />
         })
       } </div>
+
+      {/* Billing Period Selection Check box */}
       <div
         className="
           flex justify-center items-center
@@ -86,6 +138,7 @@ export default function PlanSelection() {
 
             checked:after:left-[75%]
           "
+          defaultChecked={billingPeriod === "yearly"}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             const target = event.target;
             if (target.checked) {
