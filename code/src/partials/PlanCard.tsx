@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { BillingPlan } from '../pages/PlanSelection';
 
 export type BillingPeriod = "monthly" | "yearly";
@@ -15,7 +15,7 @@ export default function PlanCardRadio(props: Props) {
   const {title, iconSrc, monthlyPrice, yearlyPrice} = props.billingPlan
   const radioRef = useRef<HTMLInputElement>(null)
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = () => {
     props.setPlanType(props.billingPlan)
   }
 
