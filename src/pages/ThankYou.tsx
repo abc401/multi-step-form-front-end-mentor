@@ -1,3 +1,5 @@
+import thankyouIcon from '/images/icon-thank-you.svg'
+
 export default function ThankYou() {
   return (
     <>
@@ -18,7 +20,7 @@ export default function ThankYou() {
         >
           <img
             className="w-20"
-            src="/images/icon-thank-you.svg"
+            src={thankyouIcon}
             alt=""
           />
           <h1>Thank You!</h1>

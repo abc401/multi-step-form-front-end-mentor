@@ -5,6 +5,9 @@ import FormNavigationContext, { FormMetaData } from '../contexts/FromNavigationC
 import { useContext } from 'react'
 import FormInputContext, { CompleteFormInput } from '../contexts/FormInputContext'
 
+import desktopSidebarBG from '/images/bg-sidebar-desktop.svg'
+import mobileSidebarBG from '/images/bg-sidebar-mobile.svg'
+
 
 export default function MainLayout() {
   const formNavigationManager = useContext(FormNavigationContext)
@@ -25,9 +28,9 @@ export default function MainLayout() {
         min-h-screen sm:min-h-0'
     >
       <picture className=' contents ' >
-        <source srcSet='/images/bg-sidebar-desktop.svg' media='(min-width: 560px)' className='hidden' />
+        <source srcSet={desktopSidebarBG} media='(min-width: 560px)' className='hidden' />
         <img
-          src="/images/bg-sidebar-mobile.svg" alt=""
+          src={mobileSidebarBG} alt=""
           className='
             object-contain
             row-span-2 col-start-1 col-span-3 row-start-1

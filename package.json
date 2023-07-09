@@ -1,9 +1,12 @@
 {
   "name": "multi-step-form",
+  "homepage": "https://abc401.github.io/multi-step-form-front-end-mentor/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",

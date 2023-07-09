@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter, createRoutesFromChildren, Route } from 'react-router-dom'
+import { RouterProvider, createRoutesFromChildren, Route, createHashRouter } from 'react-router-dom'
 import './App.css'
 import { useState } from 'react'
 import FormNavigationContext, { ReactState } from './contexts/FromNavigationContext'
@@ -20,7 +20,7 @@ const formStepSequence = [
     FINISHING_UP_FORM
 ]
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   createRoutesFromChildren(
     <Route element={<MainLayout />}>
       <Route 
