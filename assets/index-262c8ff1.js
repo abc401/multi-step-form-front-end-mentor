@@ -128,7 +128,7 @@ Error generating stack: `+o.message+`
         sm:p-4 sm:pe-0\r
         sm:m-4\r
         rounded-xl sm:shadow-2xl\r
-        min-h-screen sm:min-h-0`,children:[C.jsxs("picture",{className:" contents ",children:[C.jsx("source",{srcSet:"/images/bg-sidebar-desktop.svg",media:"(min-width: 560px)",className:"hidden"}),C.jsx("img",{src:"/images/bg-sidebar-mobile.svg",alt:"",className:`\r
+        min-h-screen sm:min-h-0`,children:[C.jsxs("picture",{className:" contents ",children:[C.jsx("source",{srcSet:"images/bg-sidebar-desktop.svg",media:"(min-width: 560px)",className:"hidden"}),C.jsx("img",{src:"images/bg-sidebar-mobile.svg",alt:"",className:`\r
             object-contain\r
             row-span-2 col-start-1 col-span-3 row-start-1\r
             w-full\r
